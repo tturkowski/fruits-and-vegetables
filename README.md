@@ -8,6 +8,14 @@ We want to build a service which will take a `request.json` and:
 * As bonus you might consider to give an option to decide which units are returned (kilograms/grams);
 * As bonus you might consider how to implement `search()` method collections;
 
+## How can I check if my code is working?
+You have two ways of moving on:
+* You call the Service from PHPUnit test like it's done in dummy test
+
+or
+
+* You create a Controller which will be calling the service with json payload
+
 ## Building image
 ```bash
 docker build -t fruits-and-vegetables -f docker/Dockerfile .
