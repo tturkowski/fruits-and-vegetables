@@ -22,3 +22,9 @@ docker run -it -w/app -v$(pwd):/app fruits-and-vegetables sh
 ```bash
 docker run -it -w/app -v$(pwd):/app fruits-and-vegetables bin/phpunit
 ```
+
+## Run development server
+```bash
+docker run -it -w/app -v$(pwd):/app -p8080:8080 fruits-and-vegetables php -S 0.0.0.0:8080 -t /app/public
+# Open http://127.0.0.1:8080 in your browser
+```
