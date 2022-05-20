@@ -28,7 +28,6 @@ docker build -t tturkowski/fruits-and-vegetables -f docker/Dockerfile .
 
 ## Running container
 ```bash
-docker pull tturkowski/fruits-and-vegetables
 docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables sh 
 ```
 
