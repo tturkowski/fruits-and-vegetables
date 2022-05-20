@@ -18,21 +18,21 @@ or
 
 ## Building image
 ```bash
-docker build -t fruits-and-vegetables -f docker/Dockerfile .
+docker build -t tturkowski/fruits-and-vegetables -f docker/Dockerfile .
 ```
 
 ## Running container
 ```bash
-docker run -it -w/app -v$(pwd):/app fruits-and-vegetables sh 
+docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables sh 
 ```
 
 ## Running tests
 ```bash
-docker run -it -w/app -v$(pwd):/app fruits-and-vegetables bin/phpunit
+docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables bin/phpunit
 ```
 
 ## Run development server
 ```bash
-docker run -it -w/app -v$(pwd):/app -p8080:8080 fruits-and-vegetables php -S 0.0.0.0:8080 -t /app/public
+docker run -it -w/app -v$(pwd):/app -p8080:8080 tturkowski/fruits-and-vegetables php -S 0.0.0.0:8080 -t /app/public
 # Open http://127.0.0.1:8080 in your browser
 ```
