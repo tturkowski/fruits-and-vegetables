@@ -16,6 +16,11 @@ or
 
 * You create a Controller which will be calling the service with a json payload
 
+## Pulling image
+```bash
+docker pull tturkowski/fruits-and-vegetables
+```
+
 ## Building image
 ```bash
 docker build -t tturkowski/fruits-and-vegetables -f docker/Dockerfile .
