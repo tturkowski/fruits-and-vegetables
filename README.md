@@ -10,11 +10,13 @@ We want to build a service which will take a `request.json` and:
 
 ## How can I check if my code is working?
 You have two ways of moving on:
-* You call the Service from PHPUnit test like it's done in dummy test
+* You call the Service from PHPUnit test like it's done in dummy test (just run bin/phpunit from the console)
 
 or
 
 * You create a Controller which will be calling the service with a json payload
+
+# If you want to use Docker (optional, no guarantee it will work on your system)
 
 ## Pulling image
 ```bash
