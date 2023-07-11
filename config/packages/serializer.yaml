@@ -1,0 +1,23 @@
+# config/packages/serializer.yaml
+services:
+  Symfony\Component\Serializer\SerializerInterface: '@serializer'
+  App\Serializer\YourCustomNormalizer: ~
+  App\Serializer\YourCustomEncoder: ~
+  serializer.normalizer:
+    class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+    tags:
+      - { name: serializer.normalizer }
+  serializer.denormalizer:
+    class: Symfony\Component\Serializer\Normalizer\ArrayDenormalizer
+    tags:
+      - { name: serializer.denormalizer }
+  serializer.encoder:
+    class: Symfony\Component\Serializer\Encoder\JsonEncoder
+    tags:
+      - { name: serializer.encoder }
+  serializer:
+    class: Symfony\Component\Serializer\Serializer
+    arguments:
+      - '@serializer.normalizer'
+      - '@serializer.denormalizer'
+      - '@serializer.encoder'
