@@ -21,7 +21,7 @@ or
 * Timebox your work
 * Your code should be tested
 
-# 🐳 Docker image
+## 🐳 Docker image
 Optional. Just here if you want to run it isolated.
 
 ## 📥 Pulling image
