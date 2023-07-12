@@ -14,7 +14,7 @@ final class FruitTest extends TestCase
     /**
      * @dataProvider fruitsProvider
      */
-    public function testFruitEntity($id, $name, $quantity): void
+    public function testFruitEntity(int $id, string $name, int $quantity): void
     {
         $product = new Fruit($id, $name, $quantity);
 
@@ -34,5 +34,4 @@ final class FruitTest extends TestCase
             ['id' => -13, 'name' => 'Apple', 'quantity' => -400],
         ];
     }
-
 }

@@ -14,7 +14,7 @@ final class VegetableTest extends TestCase
     /**
      * @dataProvider vegetablesProvider
      */
-    public function testVegetableEntity($id, $name, $quantity): void
+    public function testVegetableEntity(int $id, string $name, int $quantity): void
     {
         $product = new Vegetable($id, $name, $quantity);
 
@@ -35,5 +35,4 @@ final class VegetableTest extends TestCase
         ];
 
     }
-
 }
