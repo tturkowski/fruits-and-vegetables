@@ -19,6 +19,7 @@ final class CollectionTest extends TestCase
     private const VEGETABLE_QUANTITY = 2000;
 
     private const NON_EXISTED_ID = 3;
+
     public function testCollectionAdd(): Collection
     {
         $collection = new Collection();
