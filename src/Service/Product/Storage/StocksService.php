@@ -8,6 +8,7 @@ use App\Enum\FoodTypes;
 use App\Service\Product\Creator\Creator;
 use App\Service\Product\Storage\Collection\CollectionCreator;
 use App\Service\Product\Storage\Exception\MalformedProductsJson;
+use App\Util\ProductHydrator\Exception\WrongProductData;
 use App\Util\ProductHydrator\NaiveHydrator;
 use JsonException;
 
@@ -23,6 +24,7 @@ final class StocksService
 
     /**
      * @throws MalformedProductsJson
+     * @throws WrongProductData
      */
     public function process(string $requestJson): StocksVO
     {

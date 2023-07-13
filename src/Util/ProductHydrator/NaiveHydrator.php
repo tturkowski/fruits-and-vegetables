@@ -7,12 +7,12 @@ namespace App\Util\ProductHydrator;
 use App\Dto\Product;
 use App\Enum\FoodTypes;
 use App\Enum\MassMeasuresUnits;
-use RuntimeException;
+use App\Util\ProductHydrator\Exception\WrongProductData;
 
 class NaiveHydrator
 {
     /**
-     * @throws RuntimeException //TODO use more specific exception class
+     * @throws WrongProductData
      */
     public function hydrateProduct(array $item): Product
     {
@@ -22,8 +22,8 @@ class NaiveHydrator
         $type = FoodTypes::tryFrom((string)($item['type'] ?? null));
         $unit = MassMeasuresUnits::tryFrom((string)($item['unit'] ?? null));
 
-        if (!isset($id, $name, $quantity, $type, $unit)) {
-            throw new RuntimeException("Wrong product item definition in JSON request. id: $id; name: $name");
+        if (!isset($id, $name, $quantity, $type, $unit) || (string)$name === '') {
+            throw new WrongProductData("Wrong product item definition in JSON request. id: $id; name: $name");
         }
 
         return new Product(
