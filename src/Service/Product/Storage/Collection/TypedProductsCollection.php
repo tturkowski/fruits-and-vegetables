@@ -6,9 +6,9 @@ namespace App\Service\Product\Storage\Collection;
 
 use App\Entity\ProductInterface;
 use App\Enum\FoodTypes;
+use App\Enum\SearchFields;
 use App\Service\Product\Storage\Exception\WrongProductType;
 use App\Util\ProductCollection\CollectionInterface;
-use ArrayIterator;
 
 final class TypedProductsCollection implements CollectionInterface
 {
@@ -35,9 +35,17 @@ final class TypedProductsCollection implements CollectionInterface
     /**
      * @inheritDoc
      */
-    public function list(): ArrayIterator
+    public function list(): array
     {
         return $this->productsCollection->list();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function search(SearchFields $field, array $params): array
+    {
+        return $this->productsCollection->search($field, $params);
     }
 
     /**

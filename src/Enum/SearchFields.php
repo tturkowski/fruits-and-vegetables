@@ -14,7 +14,7 @@ enum SearchFields: string
 
     case QUANTITY = 'quantity';
 
-    public function getFilteringCallback(array $params): callable
+    public function getCallbackFilter(array $params): callable
     {
         return match ($this) {
             self::ID => (static fn(ProductInterface $item): bool => $item->getId() === ($params['id'] ?? null)),

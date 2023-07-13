@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Util\ProductCollection;
 
 use App\Entity\ProductInterface;
-use ArrayIterator;
+use App\Enum\SearchFields;
 
 final class Collection implements CollectionInterface
 {
@@ -27,7 +27,7 @@ final class Collection implements CollectionInterface
     {
         $newProductsCollection = array_filter(
             $this->productsCollection,
-            static fn(ProductInterface $item) => $item->getId() !== $id,
+            static fn(ProductInterface $item): bool => $item->getId() !== $id,
         );
 
         $deletedCount = count($this->productsCollection) - count($newProductsCollection);
@@ -38,8 +38,21 @@ final class Collection implements CollectionInterface
     /**
      * @inheritDoc
      */
-    public function list(): ArrayIterator
+    public function list(): array
     {
-        return new ArrayIterator($this->productsCollection);
+        return array_values($this->productsCollection);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function search(SearchFields $field, array $params): array
+    {
+        return array_values(
+            array_filter(
+                array_values($this->productsCollection),
+                $field->getCallbackFilter($params)
+            )
+        );
     }
 }
