@@ -7,7 +7,8 @@ namespace App\Service\Product\Storage;
 use App\Enum\FoodTypes;
 use App\Service\Product\Creator\Creator;
 use App\Service\Product\Storage\Collection\CollectionCreator;
-use App\Util\ProductHydrator\Hydrator;
+use App\Service\Product\Storage\Exception\MalformedProductsJson;
+use App\Util\ProductHydrator\NaiveHydrator;
 use JsonException;
 use RuntimeException;
 
@@ -17,7 +18,7 @@ final class StocksService
     public function __construct(
         private readonly Creator $productCreator,
         private readonly CollectionCreator $collectionCreator,
-        private readonly Hydrator $productHydrator,
+        private readonly NaiveHydrator $productHydrator,
     ) {
     }
 
@@ -35,7 +36,7 @@ final class StocksService
         $fruits = $this->collectionCreator->createFruitsCollection();
         $vegetables = $this->collectionCreator->createVegetablesCollection();
 
-        // TODO consider using symfony/serializer or JMS
+        // TODO consider using symfony/serializer or JMS instead of NaiveHydrator
         foreach ($rawItems as $item) {
             $productDto = $this->productHydrator->hydrateProduct($item);
             $product = $this->productCreator->createProduct($productDto);

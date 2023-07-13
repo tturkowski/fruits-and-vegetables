@@ -9,7 +9,7 @@ use App\Enum\FoodTypes;
 use App\Enum\MassMeasuresUnits;
 use RuntimeException;
 
-class Hydrator
+class NaiveHydrator
 {
     /**
      * @throws RuntimeException //TODO use more specific exception class
