@@ -8,6 +8,7 @@ use App\Entity\Fruit;
 use App\Entity\ProductInterface;
 use App\Entity\Vegetable;
 use App\Enum\FoodTypes;
+use App\Enum\SearchFields;
 use App\Service\Product\Storage\Collection\TypedProductsCollection;
 use App\Service\Product\Storage\Exception\WrongProductType;
 use App\Util\ProductCollection\Collection;
@@ -37,6 +38,10 @@ final class TypedProductsCollectionTest extends TestCase
         $removedProductsCount = $products->remove(2);
         $this->assertEquals(1, $removedProductsCount);
         $this->assertCount(1, $products->list());
+
+        $apples = $products->search(SearchFields::NAME, ['name' => 'Apple']);
+        $this->assertCount(1, $apples);
+        $this->assertEquals([$product1], $apples);
 
         $this->expectExceptionObject(
             new WrongProductType('Collection accepts only items with type: ' . $allowedType->value)
