@@ -10,7 +10,6 @@ use App\Service\Product\Storage\Collection\CollectionCreator;
 use App\Service\Product\Storage\Exception\MalformedProductsJson;
 use App\Util\ProductHydrator\NaiveHydrator;
 use JsonException;
-use RuntimeException;
 
 final class StocksService
 {
@@ -23,14 +22,14 @@ final class StocksService
     }
 
     /**
-     * @throws RuntimeException // TODO replace by more specific exception
+     * @throws MalformedProductsJson
      */
     public function process(string $requestJson): StocksVO
     {
         try {
             $rawItems = json_decode($requestJson, true, 3, JSON_THROW_ON_ERROR);
         } catch (JsonException) {
-            throw new RuntimeException("Cannot decode provided JSON request");
+            throw new MalformedProductsJson("Cannot decode provided JSON request");
         }
 
         $fruits = $this->collectionCreator->createFruitsCollection();
