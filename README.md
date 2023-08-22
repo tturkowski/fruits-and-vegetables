@@ -18,7 +18,7 @@ or
 
 ## 💡 Hints before you start working on it
 * Keep KISS, DRY, YAGNI, SOLID principles in mind
-* Timebox your work
+* Timebox your work - we expect that you would spend between 3 and 4 hours.
 * Your code should be tested
 
 ## 🐳 Docker image
