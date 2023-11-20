@@ -21,6 +21,9 @@ or
 * Timebox your work - we expect that you would spend between 3 and 4 hours.
 * Your code should be tested
 
+## When you are finished
+* Please upload your code to a public git repository (i.e. GitHub, Gitlab)
+
 ## 🐳 Docker image
 Optional. Just here if you want to run it isolated.
 
