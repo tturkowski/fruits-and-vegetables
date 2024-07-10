@@ -5,7 +5,7 @@ We want to build a service which will take a `request.json` and:
 * Process the file and create two separate collections for `Fruits` and `Vegetables`
 * Each collection has methods like `add()`, `remove()`, `list()`;
 * Units have to be stored as grams;
-* Store the collections in a storage engine of your choice.
+* Store the collections in a storage engine of your choice. (e.g. Database, In-memory)
 * Provide an API endpoint to query the collections. As a bonus, this endpoint can accept filters to be applied to the returning collection.
 * Provide another API endpoint to add new items to the collections (i.e., your storage engine).
 * As a bonus you might:
