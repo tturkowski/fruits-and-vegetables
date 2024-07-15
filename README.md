@@ -5,8 +5,13 @@ We want to build a service which will take a `request.json` and:
 * Process the file and create two separate collections for `Fruits` and `Vegetables`
 * Each collection has methods like `add()`, `remove()`, `list()`;
 * Units have to be stored as grams;
-* As a bonus you might consider giving option to decide which units are returned (kilograms/grams);
-* As a bonus you might consider how to implement `search()` method collections;
+* Store the collections in a storage engine of your choice. (e.g. Database, In-memory)
+* Provide an API endpoint to query the collections. As a bonus, this endpoint can accept filters to be applied to the returning collection.
+* Provide another API endpoint to add new items to the collections (i.e., your storage engine).
+* As a bonus you might:
+  * consider giving option to decide which units are returned (kilograms/grams);
+  * how to implement `search()` method collections;
+  * use latest version of Symfony's to embbed your logic 
 
 ### ✔️ How can I check if my code is working?
 You have two ways of moving on:
