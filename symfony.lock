@@ -142,9 +142,6 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
-    "symfony/browser-kit": {
-        "version": "v6.0.3"
-    },
     "symfony/cache": {
         "version": "v6.0.6"
     },
@@ -174,9 +171,6 @@
     },
     "symfony/deprecation-contracts": {
         "version": "v3.0.1"
-    },
-    "symfony/dom-crawler": {
-        "version": "v6.0.6"
     },
     "symfony/dotenv": {
         "version": "v6.0.5"
