@@ -28,10 +28,10 @@ class ProduceRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('p.name LIKE :name')
                          ->setParameter('name', '%' . $filters['name'] . '%');
         }
-        // if (isset($filters['weight'])) {
-        //     $queryBuilder->andWhere('p.weight = :weight')
-        //                  ->setParameter('weight', $filters['weight']);
-        // }
+        if (isset($filters['weight'])) {
+            $queryBuilder->andWhere('p.weight = :weight')
+                         ->setParameter('weight', $filters['weight']);
+        }
 
         return $queryBuilder->getQuery()->getResult();
     }
