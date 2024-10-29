@@ -5,12 +5,13 @@ namespace App\Collection;
 use App\DTO\ProduceDTO;
 use App\Enum\ProduceEnum;
 use App\Storage\DatabaseStorage;
+use InvalidArgumentException;
 
 class VegetableCollection implements CollectionInterface
 {
     private array $vegetables;
 
-    public function __construct(private DatabaseStorage $storage)
+    public function __construct(private DatabaseStorage $storage) 
     {
         $this->vegetables = $this->storage->list(ProduceEnum::VEGETABLE->value);    
     }
@@ -22,11 +23,16 @@ class VegetableCollection implements CollectionInterface
         $this->vegetables[] = new ProduceDTO($item, $grams);
     }
 
-    public function remove(string $item): void
+    public function remove(string $item): bool
     {
-        $this->storage->remove(ProduceEnum::VEGETABLE->value, $item);
+        try { 
+            $this->storage->remove(ProduceEnum::VEGETABLE->value, $item);
+        } catch (InvalidArgumentException $e) {
+            return false;
+        }
         
         $this->vegetables = array_filter($this->vegetables, fn(ProduceDTO $vegetableDTO) => $vegetableDTO->name !== $item);
+        return true;
     }
 
     public function list(array $filters = []): array

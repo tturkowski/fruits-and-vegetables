@@ -45,9 +45,12 @@ class FruitCollectionTest extends KernelTestCase
 
     public function testRemoveFruit(): void
     {
-        $this->fruitCollection->remove('Apple');
-        
+        $result = $this->fruitCollection->remove('Apple');
+
+        $this->assertTrue($result);
+
         $fruits = $this->fruitCollection->list();
+        
         $this->assertCount(2, $fruits);
         $this->assertFalse(array_search('Apple', array_column($fruits, 'name')) !== false);
     }
