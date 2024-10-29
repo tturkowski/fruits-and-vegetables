@@ -25,7 +25,6 @@ class ProduceController extends AbstractController
         }
 
         $type = ProduceEnum::from($typeParam);
-
         // Get filter parameters from the request
         $filters = [
             'name' => $request->query->get('name'),
