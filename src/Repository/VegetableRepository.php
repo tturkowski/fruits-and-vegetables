@@ -18,14 +18,14 @@ class VegetableRepository extends ServiceEntityRepository
 
     public function findByFiltered(array $filters): array
     {
-        $queryBuilder = $this->createQueryBuilder('f');
+        $queryBuilder = $this->createQueryBuilder('v');
 
         if (isset($filters['name'])) {
-            $queryBuilder->andWhere('f.name LIKE :name')
+            $queryBuilder->andWhere('v.name LIKE :name')
                          ->setParameter('name', '%' . $filters['name'] . '%');
         }
         if (isset($filters['weight'])) {
-            $queryBuilder->andWhere('f.weight = :weight')
+            $queryBuilder->andWhere('v.weight = :weight')
                          ->setParameter('weight', $filters['weight']);
         }
 
