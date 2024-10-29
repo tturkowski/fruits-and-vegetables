@@ -38,8 +38,9 @@ class DatabaseStorage implements StorageInterface
     }
 
     public function list(string $collection, array $filters = []): array
-    {
-        $entities = $this->getRepository($collection)->findAll();
+    {   
+        $entities = $this->getRepository($collection)->findByFilters($filters);
+
         return array_map(fn($entity) => new FruitDTO($entity->getName(), $entity->getWeight()), $entities);
     }
     

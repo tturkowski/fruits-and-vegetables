@@ -28,6 +28,7 @@ services:
       SERVICE_NAME: mysql
     volumes:
       - ./docker/mysql:/docker-entrypoint-initdb.d
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - fruit-and-vegetables-network
   nginx:

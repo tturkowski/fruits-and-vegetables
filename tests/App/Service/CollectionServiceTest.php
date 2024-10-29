@@ -1,11 +1,12 @@
 <?php
 
-    namespace App\Tests\Service;
+namespace Tests\App\Service;
 
 use App\Collection\FruitCollection;
 use App\Collection\VegetableCollection;
 use App\DTO\FruitDTO;
 use App\DTO\VegetableDTO;
+use App\Enum\ProduceEnum;
 use App\Service\CollectionService;
 use PHPUnit\Framework\TestCase;
 
@@ -33,8 +34,8 @@ class CollectionServiceTest extends TestCase
             ->method('list')
             ->willReturn($fruits);
 
-        // Act: Call getCollection
-        $result = $this->service->getCollection('fruit');
+        // Act: Call getCollection with ProduceEnum::FRUIT
+        $result = $this->service->getCollection(ProduceEnum::FRUIT);
 
         // Assert: Verify the result
         $this->assertCount(1, $result);
@@ -53,8 +54,8 @@ class CollectionServiceTest extends TestCase
             ->method('add')
             ->with($name, $weight);
 
-        // Act: Call addToCollection
-        $this->service->addToCollection('fruit', $name, $weight);
+        // Act: Call addToCollection with ProduceEnum::FRUIT
+        $this->service->addToCollection(ProduceEnum::FRUIT, $name, $weight);
     }
 
     public function testRemoveFromCollection(): void
@@ -67,10 +68,10 @@ class CollectionServiceTest extends TestCase
         
         $this->vegetableCollection->expects($this->once())
             ->method('remove')
-            ->with($name);  // Assume remove returns true on success
+            ->with($name);
 
-        // Act: Call removeFromCollection
-        $result = $this->service->removeFromCollection('vegetable', $name);
+        // Act: Call removeFromCollection with ProduceEnum::VEGETABLE
+        $result = $this->service->removeFromCollection(ProduceEnum::VEGETABLE, $name);
     
         // Assert: Verify that removal was successful
         $this->assertTrue($result);
@@ -86,8 +87,8 @@ class CollectionServiceTest extends TestCase
         $this->vegetableCollection->expects($this->never())
             ->method('remove');
 
-        // Act: Try to remove an item that doesn't exist
-        $result = $this->service->removeFromCollection('vegetable', 'Tomato');
+        // Act: Try to remove an item that doesn't exist with ProduceEnum::VEGETABLE
+        $result = $this->service->removeFromCollection(ProduceEnum::VEGETABLE, 'Tomato');
 
         // Assert: Verify that the removal was unsuccessful
         $this->assertFalse($result);

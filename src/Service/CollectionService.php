@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Collection\FruitCollection;
 use App\Collection\VegetableCollection;
+use App\Enum\ProduceEnum;
 
 class CollectionService
 {
@@ -12,24 +13,22 @@ class CollectionService
         private VegetableCollection $vegetableCollection
     ) {}
 
-    public function getCollection(string $type)
+    public function getCollection(ProduceEnum $type, array $filters = []): array
     {
-        $collection = $type === 'fruit' ? $this->fruitCollection : $this->vegetableCollection;
-        
-        return $collection->list();
+        $collection = $type === ProduceEnum::FRUIT ? $this->fruitCollection : $this->vegetableCollection;
+        return $collection->list($filters);
     }
 
-    public function addToCollection(string $type, string $name, int $weight): void
+    public function addToCollection(ProduceEnum $type, string $name, int $weight): void
     {
-        $collection = $type === 'fruit' ? $this->fruitCollection : $this->vegetableCollection;
+        $collection = $type === ProduceEnum::FRUIT ? $this->fruitCollection : $this->vegetableCollection;
         $collection->add($name, $weight);
     }
 
-    public function removeFromCollection(string $type, string $name): bool
+    public function removeFromCollection(ProduceEnum $type, string $name): bool
     {
-        $collection = $type === 'fruit' ? $this->fruitCollection : $this->vegetableCollection;
+        $collection = $type === ProduceEnum::FRUIT ? $this->fruitCollection : $this->vegetableCollection;
         
-        // Check if the item exists to delete and handle accordingly
         if ($collection->list()) { 
             $collection->remove($name);
             return true; 

@@ -2,8 +2,10 @@
 
 namespace Tests\Storage;
 
+use App\DataFixture\ProduceFixture;
 use App\Entity\Fruit;
 use App\Entity\Vegetable;
+use App\Enum\ProduceEnum;
 use App\Repository\FruitRepository;
 use App\Repository\VegetableRepository;
 use App\Storage\DatabaseStorage;
@@ -21,21 +23,25 @@ class DatabaseStorageTest extends TestCase
     protected function setUp(): void
     {
         $this->entityManager = $this->createMock(EntityManagerInterface::class);
-
+        
         $this->fruitRepository = $this->createMock(FruitRepository::class);
         $this->vegetableRepository = $this->createMock(VegetableRepository::class);
-
+        
         $this->entityManager->method('getRepository')
-            ->will($this->returnCallback(function($class) {
-                if ($class === Fruit::class) {
-                    return $this->fruitRepository;
-                }
+        ->will($this->returnCallback(function($class) {
+            if ($class === Fruit::class) {
+                return $this->fruitRepository;
+            }
                 if ($class === Vegetable::class) {
                     return $this->vegetableRepository;
                 }
                 throw new \InvalidArgumentException("Unsupported class: $class");
             }));
-
+            
+        // Load fixtures
+        $fixture = new ProduceFixture();
+        $fixture->load($this->entityManager);
+        
         $this->storage = new DatabaseStorage($this->entityManager);
     }
 
@@ -178,7 +184,7 @@ class DatabaseStorageTest extends TestCase
         $fruit2->setWeight(120);
 
         $this->fruitRepository->expects($this->once())
-            ->method('findAll')
+            ->method('findByFilters')
             ->willReturn([$fruit1, $fruit2]);
 
         $fruits = $this->storage->list('fruit');
@@ -201,7 +207,7 @@ class DatabaseStorageTest extends TestCase
         $vegetable2->setWeight(200);
 
         $this->vegetableRepository->expects($this->once())
-            ->method('findAll')
+            ->method('findByFilters')
             ->willReturn([$vegetable1, $vegetable2]);
 
         $vegetables = $this->storage->list('vegetable');
@@ -211,5 +217,34 @@ class DatabaseStorageTest extends TestCase
         $this->assertSame(100, $vegetables[0]->weight);
         $this->assertSame('Broccoli', $vegetables[1]->name);
         $this->assertSame(200, $vegetables[1]->weight);
+    }
+
+    public function testListFilters(): void
+    {
+        $fruit1 = new Fruit();
+        $fruit1->setName('Apple');
+        $fruit1->setWeight(150);
+
+        $fruit3 = new Fruit();
+        $fruit3->setName('Green Apple');
+        $fruit3->setWeight(150);
+
+        $fruit2 = new Fruit();
+        $fruit2->setName('Banana');
+        $fruit2->setWeight(120);
+
+        // Configure the fruit repository to return the created fruit objects
+        $this->fruitRepository->expects($this->once())
+            ->method('findByFilters')
+            ->with(['name' => 'Apple']) // Ensure that filters are applied correctly
+            ->willReturn([$fruit1, $fruit3]);
+
+        // Call the storage's list method with the filter for fruits
+        $fruits = $this->storage->list('fruit', ['name' => 'Apple']);
+
+        // Assertions to verify the filtered results
+        $this->assertCount(2, $fruits);
+        $this->assertSame('Apple', $fruits[0]->name);
+        $this->assertSame(150, $fruits[0]->weight);
     }
 }

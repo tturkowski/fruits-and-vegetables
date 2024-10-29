@@ -19,17 +19,22 @@ class ProduceRepository extends ServiceEntityRepository
     //    /**
     //     * @return Produce[] Returns an array of Produce objects
     //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findByFilters(array $filters): array
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        // Applying filters dynamically
+        if (isset($filters['name'])) {
+            $queryBuilder->andWhere('p.name LIKE :name')
+                         ->setParameter('name', '%' . $filters['name'] . '%');
+        }
+        // if (isset($filters['weight'])) {
+        //     $queryBuilder->andWhere('p.weight = :weight')
+        //                  ->setParameter('weight', $filters['weight']);
+        // }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 
     //    public function findOneBySomeField($value): ?Produce
     //    {

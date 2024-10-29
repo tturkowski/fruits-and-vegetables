@@ -4,9 +4,10 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.0.2",
+        "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/annotations": "^2.0",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.3",
@@ -20,8 +21,10 @@
         "symfony/yaml": "7.1.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.6",
         "phpunit/phpunit": "^9.5",
-        "symfony/css-selector": "6.0.*",
+        "symfony/browser-kit": "^7.1",
+        "symfony/css-selector": "^7.1",
         "symfony/maker-bundle": "^1.38",
         "symfony/phpunit-bridge": "^6.0"
     },
