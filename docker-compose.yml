@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  app:
+    depends_on:
+      - db
+    build:
+      args:
+        user: ${USER}
+        uid: 1000
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    image: fruit-and-vegetables-app
+    container_name: fruit-and-vegetables-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - fruit-and-vegetables-network
+  db:
+    image: mysql:8.0
+    container_name: fruit-and-vegetables-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: fruit-and-vegetables
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - fruit-and-vegetables-network
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d/
+    networks:
+      - fruit-and-vegetables-network
+
+networks:
+  fruit-and-vegetables-network:
+    driver: bridge
