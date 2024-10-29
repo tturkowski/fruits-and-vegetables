@@ -1,8 +1,8 @@
 nelmio_api_doc:
   documentation:
     info:
-      title: Your API Title
-      description: A description of your API
+      title: Fruit and Veg API
+      description: An API for adding fruit or veg to a collection
       version: 1.0.0
     paths:
       /api/produce:
