@@ -27,16 +27,12 @@ class ProduceControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        // Mock a call to index with 'fruit' type
         $this->client->request('GET', '/api/produce', ['type' => ProduceEnum::FRUIT->value]);
 
-        // Assert the response status code
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
 
-        // Assert the response format (assuming JSON)
         $this->assertJson($this->client->getResponse()->getContent());
 
-        // Decode and inspect response data (modify based on your data structure)
         $responseData = json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertIsArray($responseData);
@@ -46,7 +42,6 @@ class ProduceControllerTest extends WebTestCase
 
     public function testAdd(): void
     {
-        // Define data for a new item to add
         $type = ProduceEnum::FRUIT;
 
         $data = [
@@ -55,14 +50,10 @@ class ProduceControllerTest extends WebTestCase
             'weight' => 150
         ];
 
-
-        // Send a POST request to the add endpoint
         $this->client->request('POST', '/api/produce', [], [], [], json_encode($data));
 
-        // Assert the response status code
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
 
-        // Verify the response message or data
         $responseData = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('success', $responseData);
         $this->assertEquals($responseData['success'], "Added to {$type->value} collection");
@@ -70,21 +61,17 @@ class ProduceControllerTest extends WebTestCase
 
     public function testInvalidAdd(): void
     {
-
-        // Define invalid data (missing 'name')
         $data = [
             'type' => ProduceEnum::FRUIT->value,
             'weight' => 150
         ];
 
-        // Send a POST request with incomplete data
         $this->client->request('POST', '/api/produce', [], [], [], json_encode($data));
-        // Assert a bad request status due to validation error
+
         $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
 
-        // Check for a descriptive error message
         $responseData = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('error', $responseData);
-        $this->assertEquals('Name and weight must be provided', $responseData['error']);
+        $this->assertEquals('Name must be a string and weight must be a numeric value', $responseData['error']);
     }
 }

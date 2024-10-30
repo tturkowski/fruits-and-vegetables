@@ -49,12 +49,30 @@ class ProduceController extends AbstractController
             return new JsonResponse(['error' => 'Invalid type'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
-        if (!isset($data['name']) || !isset($data['weight'])) {
-            return new JsonResponse(['error' => 'Name and weight must be provided'], JsonResponse::HTTP_BAD_REQUEST);
+        if (!isset($data['name']) || !isset($data['weight']) || !is_string($data['name']) || !is_numeric($data['weight'])) {
+            return new JsonResponse(['error' => 'Name must be a string and weight must be a numeric value'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
         $this->collectionService->addToCollection($type, $data['name'], $data['weight']);
 
         return new JsonResponse(['success' => "Added to {$type->value} collection"], JsonResponse::HTTP_CREATED);
+    }
+
+    // This is just to make it easy to test on the docs page
+    // Collection Service Test contains tests for the service method
+    #[Route('/api/produce/json', name: 'api_produce_json', methods: ['POST'])]
+    public function jsonRequest()
+    {
+        $jsonFilePath = __DIR__ . '/../../../request.json';
+
+        $this->collectionService->processJsonRequest($jsonFilePath);
+
+        // Show all collection data to prove the results were parsed to the correct collection.
+        $data = array_merge(
+            $this->collectionService->getCollection(ProduceEnum::FRUIT),
+            $this->collectionService->getCollection(ProduceEnum::VEGETABLE)
+        );
+
+        return new JsonResponse($data);
     }
 }
