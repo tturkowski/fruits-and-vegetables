@@ -54,3 +54,12 @@ nelmio_api_doc:
               description: Produce item added successfully.
             "400":
               description: Invalid input data.
+      /api/produce/json:
+        get:
+          summary: Process JSON File
+          description: Test method to process a JSON file containing produce items and retrieve the collection.
+          responses:
+            "200":
+              description: Returns the combined collection of all processed produce.
+            "400":
+              description: JSON file not found or invalid format.

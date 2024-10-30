@@ -34,9 +34,9 @@ We want to build a service which will take a `request.json` and:
   * use latest version of Symfony's to embbed your logic 
 
 ## 🎯 Methodology
-This solution could be considered over-engineering for such a simple tool, but it is built in such a way to make in highly scalable and focuses on data integrity,
+This solution could be considered over-engineering for such a simple tool, but it is built in such a way to make it highly scalable and focuses on data integrity,
 It is built in such a way that we could switch out a storage class and it would make no effect on the rest of the process.
-Likewise, we could switch out the collection logic and the API controller would still work unaffected as it only works with the collection service etc.
+Likewise, we could switch out the collection logic and the API controller would still work unaffected as it only works with the collection service. etc.
 ### Entities
 * Parent produce entities + fruit and vegetable children
 * Built with the single table option.
@@ -92,6 +92,7 @@ http://0.0.0.0/api/doc
 * Hour 2: Finished Storage layer & tests, started on collection interface and classes.
 * Hour 3: Collections finished, built a service class to work with both collections.
 * Hour 4: Added API controller and API docs, fleshed out Readme file. 
+* README.md added after development.
 
 
 ## 🐳 Docker 

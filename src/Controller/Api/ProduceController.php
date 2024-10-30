@@ -60,7 +60,7 @@ class ProduceController extends AbstractController
 
     // This is just to make it easy to test on the docs page
     // Collection Service Test contains tests for the service method
-    #[Route('/api/produce/json', name: 'api_produce_json', methods: ['POST'])]
+    #[Route('/api/produce/json', name: 'api_produce_json', methods: ['GET'])]
     public function jsonRequest()
     {
         $jsonFilePath = __DIR__ . '/../../../request.json';
